@@ -1,41 +1,60 @@
+import React from 'react';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { AppBar, Toolbar, Typography, Container, Box } from '@mui/material';
+import Dashboard from './pages/Dashboard';
+import Sales from './pages/Sales';
+import Products from './pages/Products';
+import Inventory from './pages/Inventory';
+import Customers from './pages/Customers';
+import Reports from './pages/Reports';
+import Settings from './pages/Settings';
+import Transactions from './pages/Transactions';
+import Layout from './components/Layout';
 
-function Dashboard() {
-  return (
-    <div className="dashboard">
-      <h1>POS Dashboard</h1>
-      <p>Welcome to your Point of Sale system</p>
-    </div>
-  );
-}
-
-function Sales() {
-  return (
-    <div className="sales">
-      <h1>Sales</h1>
-      <p>Sales transactions page</p>
-    </div>
-  );
-}
-
-function Products() {
-  return (
-    <div className="products">
-      <h1>Products</h1>
-      <p>Product management page</p>
-    </div>
-  );
-}
+// Theme configuration
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#dc004e',
+    },
+  },
+});
 
 export default function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/sales" element={<Sales />} />
-        <Route path="/products" element={<Products />} />
-      </Routes>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <Layout>
+          <AppBar position="static">
+            <Toolbar>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                POS Electron App
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <Container maxWidth="lg" sx={{ mt: 4 }}>
+            <Typography variant="h4" component="h1" gutterBottom>
+              Welcome to your POS System
+            </Typography>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/sales" element={<Sales />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/inventory" element={<Inventory />} />
+              <Route path="/customers" element={<Customers />} />
+              <Route path="/transactions" element={<Transactions />} />
+              <Route path="/reports" element={<Reports />} />
+              <Route path="/settings" element={<Settings />} />
+            </Routes>
+          </Container>
+        </Layout>
+      </Router>
+    </ThemeProvider>
   );
 }
